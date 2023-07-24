@@ -141,7 +141,7 @@ void Gra::generuj(int posx, int posy) {
 	while (counter != liczbabomb) {
 		int liczba1 = randrozmiar(mt);
 		int liczba2 = randrozmiar(mt);
-		if (czyBylyWylosowane(liczba1, liczba2, losy1, losy2, counter) == false) {
+		if (czyBylyWylosowane(liczba1, liczba2, losy1, losy2, counter) == false && tru_start(liczba1, liczba2, posx, posy) == true) {
 			losy1[counter] = liczba1;
 			losy2[counter] = liczba2;
 			counter++;
@@ -176,7 +176,7 @@ void Gra::customizuj() {
 
 			switch (mapa_rozlozenie[i][j]) {
 			case -1:
-				mapa_rys[i][j].setFillColor(sf::Color::Red);
+				//mapa_rys[i][j].setFillColor(sf::Color::Red);
 				cyferki[i][j].setString(std::to_string(-1));
 				break;
 			case 0:
@@ -184,56 +184,56 @@ void Gra::customizuj() {
 				cyferki[i][j].setString(std::to_string(0));
 				break;
 			case 1:
-				mapa_rys[i][j].setFillColor(sf::Color(0, 30, 0));
+				//mapa_rys[i][j].setFillColor(sf::Color(0, 30, 0));
 				cyferki[i][j].setString(std::to_string(1));
 				cyferki[i][j].setFillColor(sf::Color(47, 255, 0));
 				cyferki[i][j].setOutlineColor(sf::Color::Black);
 				cyferki[i][j].setOutlineThickness(1);
 				break;
 			case 2:
-				mapa_rys[i][j].setFillColor(sf::Color(0, 60, 0));
+				//mapa_rys[i][j].setFillColor(sf::Color(0, 60, 0));
 				cyferki[i][j].setString(std::to_string(2));
 				cyferki[i][j].setFillColor(sf::Color(219, 94, 48));
 				cyferki[i][j].setOutlineColor(sf::Color::Black);
 				cyferki[i][j].setOutlineThickness(1);
 				break;
 			case 3:
-				mapa_rys[i][j].setFillColor(sf::Color(0, 90, 0));
+				//mapa_rys[i][j].setFillColor(sf::Color(0, 90, 0));
 				cyferki[i][j].setString(std::to_string(3));
 				cyferki[i][j].setFillColor(sf::Color(245, 241, 32));
 				cyferki[i][j].setOutlineColor(sf::Color::Black);
 				cyferki[i][j].setOutlineThickness(1);
 				break;
 			case 4:
-				mapa_rys[i][j].setFillColor(sf::Color(0, 120, 0));
+				//mapa_rys[i][j].setFillColor(sf::Color(0, 120, 0));
 				cyferki[i][j].setString(std::to_string(4));
 				cyferki[i][j].setFillColor(sf::Color(74, 146, 250));
 				cyferki[i][j].setOutlineColor(sf::Color::Black);
 				cyferki[i][j].setOutlineThickness(1);
 				break;
 			case 5:
-				mapa_rys[i][j].setFillColor(sf::Color(0, 150, 0));
+				//mapa_rys[i][j].setFillColor(sf::Color(0, 150, 0));
 				cyferki[i][j].setString(std::to_string(5));
 				cyferki[i][j].setFillColor(sf::Color(255, 105, 252));
 				cyferki[i][j].setOutlineColor(sf::Color::Black);
 				cyferki[i][j].setOutlineThickness(1);
 				break;
 			case 6:
-				mapa_rys[i][j].setFillColor(sf::Color(0, 180, 0));
+				//mapa_rys[i][j].setFillColor(sf::Color(0, 180, 0));
 				cyferki[i][j].setString(std::to_string(6));
 				cyferki[i][j].setFillColor(sf::Color(186, 7, 49));
 				cyferki[i][j].setOutlineColor(sf::Color::Black);
 				cyferki[i][j].setOutlineThickness(1);
 				break;
 			case 7:
-				mapa_rys[i][j].setFillColor(sf::Color(0, 210, 0));
+				//mapa_rys[i][j].setFillColor(sf::Color(0, 210, 0));
 				cyferki[i][j].setString(std::to_string(7));
 				cyferki[i][j].setFillColor(sf::Color(255, 201, 214));
 				cyferki[i][j].setOutlineColor(sf::Color::Black);
 				cyferki[i][j].setOutlineThickness(1);
 				break;
 			case 8:
-				mapa_rys[i][j].setFillColor(sf::Color(0, 240, 0));
+				//mapa_rys[i][j].setFillColor(sf::Color(0, 240, 0));
 				cyferki[i][j].setString(std::to_string(8));
 				cyferki[i][j].setFillColor(sf::Color(143, 40, 14));
 				cyferki[i][j].setOutlineColor(sf::Color::Black);
@@ -252,13 +252,36 @@ void Gra::customizuj() {
 }
 
 bool Gra::tru_start(int rand1, int rand2, int posx, int posy) {
-	if (rand1 != posx && rand2 != posy) {
-		//skrajne i tak dalej krok po kroku nie mam sily
-
+	if (rand1 == posx && rand2 == posy) {
+		return false;
 
 	}
-	else {
+	else if (rand1 == posx + 1 && rand2 == posy) {
 		return false;
+	}
+	else if (rand1 == posx + 1 && rand2 == posy + 1) {
+		return false;
+	}
+	else if (rand1 == posx && rand2 == posy + 1) {
+		return false;
+	}
+	else if (rand1 == posx - 1 && rand2 == posy + 1) {
+		return false;
+	}
+	else if (rand1 == posx - 1 && rand2 == posy) {
+		return false;
+	}
+	else if (rand1 == posx - 1 && rand2 == posy - 1) {
+		return false;
+	}
+	else if (rand1 == posx && rand2 == posy - 1) {
+		return false;
+	}
+	else if (rand1 == posx + 1 && rand2 == posy - 1) {
+		return false;
+	}
+	else {
+		return true;
 	}
 }
 
@@ -859,7 +882,7 @@ void Gra::licznik() {
 int main() {
 	srand(time(NULL));
 
-	Gra gra(15, 33);
+	Gra gra(15, 25);
 	gra.petla_gra();
 
 }
